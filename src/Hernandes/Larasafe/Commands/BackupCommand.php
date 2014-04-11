@@ -120,7 +120,9 @@ class BackupCommand extends Command
         $file_name = date('Y-m-d_h-i-s');
         $target = $this->targets->getLocalPath();
 
-        passthru("cd ".base_path()."/.larasafe/ && tar -cvzf $file_name.tar.gz .");
+
+        passthru("cd ".base_path()."/.larasafe/ && tar -czf $file_name.tar.gz database");
+        passthru("cd ".base_path()."/.larasafe/ && tar -czf $file_name.tar.gz files");
         passthru("cd ".base_path()."/.larasafe/ && mv $file_name.tar.gz $target/");
     }
     /**
