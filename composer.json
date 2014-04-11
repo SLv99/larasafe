@@ -1,0 +1,23 @@
+{
+    "name": "hernandes/larasafe",
+    "description": "",
+    "authors": [
+        {
+            "name": "Diego Hernandes",
+            "email": "diego@he.rnand.es"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.1.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Hernandes\\Larasafe\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
