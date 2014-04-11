@@ -9,7 +9,7 @@ return array(
     |
     | if true, any table configured in your models will be used.
     |
-	*/
+    */
 
     'modes' =>  array(
         'local',
@@ -24,7 +24,7 @@ return array(
     | number of copies to keep
     | use 0 for unlimited
     |
-	*/
+    */
 
     'versions' => 4,
 
@@ -39,7 +39,7 @@ return array(
     | Please specify a complete path to the target
     | relative paths can be messy to find latter
     |
-	*/
+    */
 
     'local_path' => '/Volumes/web/backup',
 
