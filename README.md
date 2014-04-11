@@ -9,7 +9,7 @@ An easy way to make backups of you laravel app.
 ###Install
  - You need to require this package as a composer dependency, so, run:
 
-`composer require hernandes/larasafe:dev-master`
+    `composer require hernandes/larasafe:dev-master`
 
  - After it, register the package on the `$providers` array on `app/config/app.php`
 
