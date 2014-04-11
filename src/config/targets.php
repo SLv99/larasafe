@@ -16,6 +16,19 @@ return array(
         'remote'
     ),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Version to keep
+    |--------------------------------------------------------------------------
+    |
+    | number of copies to keep
+    | use 0 for unlimited
+    |
+	*/
+
+    'versions' => 4,
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -28,7 +41,10 @@ return array(
     |
 	*/
 
-    'local' => app_path().'app/storage/backups',
+    'local_path' => base_path().'/../backup',
+
+
+
 
 
 
@@ -41,6 +57,9 @@ return array(
     |
     |
     */
+
+    'remote_connection' => 'production',
+    'remote_path'       => '/tmp',
 
 
 

@@ -9,6 +9,13 @@ use Symfony\Component\Console\Input\InputArgument;
 class BackupCommand extends Command
 {
 
+
+    protected $database;
+
+    protected $files;
+
+    protected $targets;
+
     /**
      * The console command name.
      *
@@ -30,9 +37,92 @@ class BackupCommand extends Command
      */
     public function __construct()
     {
+        $this->database = new Parser\Database();
+        $this->files = new Parser\Files();
+        $this->targets = new Parser\Targets();
+
         parent::__construct();
     }
 
+
+    protected function init()
+    {
+        $this->output->writeln("\n\nLaraSafe  - Easy Laravel Backups\n\n");
+        $this->prepareTmp();
+
+
+
+    }
+
+
+    protected function databaseBackup()
+    {
+        $this->output->writeln("===============================================================");
+        $this->info(date('Y-m-d h:i:s')." - DATABASE Backup Started ");
+        $this->output->writeln("===============================================================");
+        $this->comment("  --> Please wait a moment...");
+
+        if (!file_exists(base_path().'/.larasafe/database')) {
+            mkdir(base_path().'/.larasafe/database', 0755, true);
+        }
+
+        passthru($this->database->getDumpString() . " > ".base_path()."/.larasafe/database/database_dump.sql");
+
+        $this->output->writeln("===============================================================");
+        $this->info(date('Y-m-d h:i:s')." - DATABASE Backup Finished ");
+        $this->output->writeln("===============================================================");
+
+
+    }
+
+
+    protected function filesBackup()
+    {
+
+
+        $this->output->writeln("===============================================================");
+        $this->info(date('Y-m-d h:i:s')." - FILES Backup Started ");
+        $this->output->writeln("===============================================================");
+        $this->comment(" --> Please wait a moment...");
+
+
+
+
+        foreach($this->files->getSources() as $source) {
+
+            $source_path = base_path().'/'.$source;
+            $target_path = base_path().'/.larasafe/files/'.$source;
+            $this->output->writeln("Copying: " . $source_path);
+            if (file_exists($source_path) and !file_exists($target_path) and is_dir($source_path)) {
+                mkdir($target_path, 0775, true);
+                sleep(1);
+                $source_path = base_path().'/'.$source . '/';
+            } else if( is_file(base_path().'/'. $source) ) {
+                if(!file_exists(base_path().'/.larasafe/files/'.dirname($source))) {
+                    sleep(1);
+                    mkdir(base_path().'/.larasafe/files/'.dirname($source), 0775, true);
+                }
+
+            }
+
+            exec("rsync -az ". $this->files->getExcludes() . ' ' . $source_path
+                . " " .
+                base_path()."/.larasafe/files/".$source);
+        }
+        $this->output->writeln("===============================================================");
+        $this->info(date('Y-m-d h:i:s')." --- FILES Backup Finished ");
+        $this->output->writeln("===============================================================");
+    }
+
+
+    protected function localBackup()
+    {
+        $file_name = date('Y-m-d_h-i-s');
+        $target = $this->targets->getLocalPath();
+
+        passthru("cd ".base_path()."/.larasafe/ && tar -cvzf $file_name.tar.gz .");
+        passthru("cd ".base_path()."/.larasafe/ && mv $file_name.tar.gz $target/");
+    }
     /**
      * Execute the console command.
      *
@@ -40,25 +130,55 @@ class BackupCommand extends Command
      */
     public function fire()
     {
-        $database = new Parser\Database();
+
+        $this->init();
+
+        if ($this->database->isEnabled()) {
+            $this->databaseBackup();
+        } else {
+            $this->output->writeln("===============================================================");
+            $this->comment("DATABASE backups are disabled");
+            $this->output->writeln("===============================================================");
+        }
+
+        if ($this->files->isEnabled()) {
+            $this->filesBackup();
+        } else {
+            $this->output->writeln("===============================================================");
+            $this->comment('FILES backups are disabled');
+            $this->output->writeln("===============================================================");
+        }
 
 
-        $this->output->writeln("\n\nLaraSafe  - Easy Laravel Backups\n\n");
+        if ($this->targets->localEnabled()) {
+            $this->localBackup();
+        }
 
-        $this->info(date('Y-m-d h:i:s')." - Starting DATABASE Backup");
-        $this->comment("    ---Please wait a moment...");
-        passthru($database->getDumpString() . " > teste.sql");
-        $this->info(date('Y-m-d h:i:s')." --- DATABASE Backup Finished ");
-
-        $this->comment("\n\n");
-
-        $this->info(date('Y-m-d h:i:s')." - Starting FILES Backup");
-        $this->comment("    ---Please wait a moment...");
-        passthru($database->getDumpString() . " > teste.sql");
-        $this->info(date('Y-m-d h:i:s')." --- FILES Backup Finished ");
+        if ($this->targets->remoteEnabled()) {
+            //$this->remoteBackup();
+        }
 
 
-        //$this->info($database->getDumpString());
+        $this->removeTmp();
+    }
+
+
+
+    protected function prepareTmp()
+    {
+        $this->comment("Creating Temporary Backup Files\n");
+
+        if(!file_exists(base_path()."/.larasafe")) {
+            mkdir(base_path() . '/.larasafe');
+        }
+    }
+
+    protected function removeTmp()
+    {
+        $this->comment("\nRemoving Temporary Backup Files\n");
+        if(file_exists(base_path()."/.larasafe") && is_dir(base_path()."/.larasafe")) {
+            passthru("rm -rf ".base_path() . '/.larasafe');
+        }
     }
 
     /**

@@ -15,12 +15,19 @@ class Database
 
     protected $dumpString;
 
+    protected $enabled = false;
+
 
 
     public function __construct()
     {
         $this->fileConfig = Config::get('larasafe::database');
-        $this->parse();
+
+        if ($this->fileConfig['enabled']) {
+            $this->enabled = true;
+            $this->parse();
+        }
+
     }
 
     protected function parse()
@@ -89,6 +96,11 @@ class Database
     public function getDumpString()
     {
         return $this->dumpString;
+    }
+
+    public function isEnabled()
+    {
+        return $this->enabled;
     }
 
 
