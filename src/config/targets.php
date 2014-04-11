@@ -3,11 +3,11 @@
 return array(
 
     /*
-	|--------------------------------------------------------------------------
-	| Backup all your files, including app ones?
-	|--------------------------------------------------------------------------
-	|
-	| if true, any table configured in your models will be used.
+    |--------------------------------------------------------------------------
+    | Backup all your files, including app ones?
+    |--------------------------------------------------------------------------
+    |
+    | if true, any table configured in your models will be used.
     |
 	*/
 
@@ -18,11 +18,11 @@ return array(
 
 
     /*
-	|--------------------------------------------------------------------------
-	| Local Target
-	|--------------------------------------------------------------------------
-	|
-	| A Place to store local copies of the the backup
+    |--------------------------------------------------------------------------
+    | Local Target
+    |--------------------------------------------------------------------------
+    |
+    | A Place to store local copies of the the backup
     | Please specify a complete path to the target
     | relative paths can be messy to find latter
     |
@@ -33,14 +33,14 @@ return array(
 
 
     /*
-	|--------------------------------------------------------------------------
-	| Remote Target
-	|--------------------------------------------------------------------------
-	|
+    |--------------------------------------------------------------------------
+    | Remote Target
+    |--------------------------------------------------------------------------
+    |
     | @todo include a remote target option, it will add the rsync or scp dependency
     |
-	|
-	*/
+    |
+    */
 
 
 
