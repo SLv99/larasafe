@@ -1,6 +1,8 @@
 ## Larasafe
 An easy way to make backups of you laravel app.
 
+[![Latest Stable Version](https://poser.pugx.org/hernandes/larasafe/v/stable.png)](https://packagist.org/packages/hernandes/larasafe) [![Total Downloads](https://poser.pugx.org/hernandes/larasafe/downloads.png)](https://packagist.org/packages/hernandes/larasafe) [![Latest Unstable Version](https://poser.pugx.org/hernandes/larasafe/v/unstable.png)](https://packagist.org/packages/hernandes/larasafe) [![License](https://poser.pugx.org/hernandes/larasafe/license.png)](https://packagist.org/packages/hernandes/larasafe)
+
 ###Install
  - You need to require this package as a composer dependency, so, run:
 
