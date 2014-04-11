@@ -41,7 +41,7 @@ return array(
     |
 	*/
 
-    'local_path' => base_path().'/../backup',
+    'local_path' => '/Volumes/web/backup',
 
 
 
