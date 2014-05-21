@@ -17,6 +17,8 @@ class Targets
 
     protected $remotePath;
 
+    protected $sshKeyPath;
+
     public function __construct()
     {
         $this->fileConfig = Config::get('larasafe::targets');
@@ -36,6 +38,7 @@ class Targets
         if ($this->remoteEnabled()) {
             $this->remoteConnection = $this->fileConfig['remote_connection'];
             $this->remotePath = $this->fileConfig['remote_path'];
+            $this->sshKeyPath = $this->fileConfig['remote_ssh_key_path'];
         }
     }
 
@@ -62,6 +65,11 @@ class Targets
     public function getRemotePath()
     {
         return $this->remotePath;
+    }
+
+    public function getSshKeyPath()
+    {
+        return $this->sshKeyPath;
     }
 
 } 

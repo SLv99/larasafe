@@ -43,7 +43,6 @@ class Database
     {
         $connection_name = $this->fileConfig['connection'];
         $this->connection = \Config::get("database.connections.$connection_name");
-
     }
 
     protected function parseOptions()
@@ -79,7 +78,7 @@ class Database
 
         $password = '';
         if ($this->connection['password'] != '') {
-            $password = '-p ' . $this->connection['password'];
+            $password = '-p' . $this->connection['password'];
         }
         $this->dumpString = "mysqldump -u".$this->connection['username']." "
                             . $password . " "

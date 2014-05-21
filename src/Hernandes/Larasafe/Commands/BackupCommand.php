@@ -66,6 +66,8 @@ class BackupCommand extends Command
             mkdir(base_path().'/.larasafe/database', 0755, true);
         }
 
+        $this->output->writeln($this->database->getDumpString());
+
         passthru($this->database->getDumpString() . " > ".base_path()."/.larasafe/database/database_dump.sql");
 
         $this->output->writeln("===============================================================");
@@ -120,10 +122,19 @@ class BackupCommand extends Command
         $file_name = date('Y-m-d_h-i-s');
         $target = $this->targets->getLocalPath();
 
-
-        passthru("cd ".base_path()."/.larasafe/ && tar -czf $file_name.tar.gz database");
-        passthru("cd ".base_path()."/.larasafe/ && tar -czf $file_name.tar.gz files");
+        passthru("cd ".base_path()."/.larasafe/ && tar -czf $file_name.tar.gz database files");
         passthru("cd ".base_path()."/.larasafe/ && mv $file_name.tar.gz $target/");
+    }
+
+    protected function remoteBackup()
+    {
+        $file_name  = date('Y-m-d_h-i-s');
+        $target     = $this->targets->getRemotePath();
+        $connection = $this->targets->getRemoteConnection();
+        $sshKeyPath = $this->targets->getSshKeyPath();
+
+        passthru("cd ".base_path()."/.larasafe/ && tar -czf $file_name.tar.gz database files");
+        passthru("rsync -avz -e \"ssh -i ".$sshKeyPath."\" ".base_path()."/.larasafe/".$file_name.".tar.gz  ".$connection.":".$target);
     }
     /**
      * Execute the console command.
@@ -157,7 +168,7 @@ class BackupCommand extends Command
         }
 
         if ($this->targets->remoteEnabled()) {
-            //$this->remoteBackup();
+            $this->remoteBackup();
         }
 
 

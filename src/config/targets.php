@@ -60,6 +60,7 @@ return array(
 
     'remote_connection' => 'production',
     'remote_path'       => '/tmp',
+    'remote_ssh_key_path'=> ''
 
 
 
