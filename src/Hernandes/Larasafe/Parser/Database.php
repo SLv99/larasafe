@@ -46,10 +46,15 @@ class Database
         $environment = $this->fileConfig['environment'];
 
         if( ! empty($environment)) {
-            $this->connection = \Config::get("database.connections.$connection_name", $environment);
+            $loader = Config::getLoader();
+            $config = new \Illuminate\Config\Repository($loader, $environment);
+        
+            $this->connection = $config->get("database.connections.$connection_name");
         } else {
             $this->connection = \Config::get("database.connections.$connection_name");
         }
+
+        dd($this->connection);
         
     }
 
