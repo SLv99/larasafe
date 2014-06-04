@@ -89,10 +89,10 @@ class Targets
     public function getBackupEmailData()
     {
         return array (
-            'email'     => $this->backup_email,
-            'subject'   => $this->backup_email_subject,
-            'view'      => $this->backup_email_view,
-            'from'      => $this->backup_email_from
+            'email'     => $this->backupEmail,
+            'subject'   => $this->backupEmailSubject,
+            'view'      => $this->backupEmailView,
+            'from'      => $this->backupEmailFrom
         );
     }
 
