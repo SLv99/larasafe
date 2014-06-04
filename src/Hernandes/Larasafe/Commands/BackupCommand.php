@@ -130,7 +130,7 @@ class BackupCommand extends Command
 
         if( ! empty($backup_email)) {
            
-            Mail::send('emails.backup', array(), function($message) use ($backup_email, target, $file_name)
+            Mail::send('emails.backup', array(), function($message) use ($backup_email, $target, $file_name)
             {
                 $message->from($backup_email, 'Backup');
 
