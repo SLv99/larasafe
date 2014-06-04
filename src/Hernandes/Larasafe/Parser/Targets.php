@@ -27,8 +27,6 @@ class Targets
 
     protected $backupEmailFrom;
 
-    protected $backupEnvironment;
-
     public function __construct()
     {
         $this->fileConfig = Config::get('larasafe::targets');
@@ -40,7 +38,6 @@ class Targets
         $this->local = in_array('local', $this->fileConfig['modes']);
         $this->remote = in_array('remote', $this->fileConfig['modes']);
         $this->versions = $this->fileConfig['versions'];
-        $this->backupEnvironment      = $this->fileConfig['backup_environment'];
 
         if ($this->localEnabled()) {
             
@@ -89,10 +86,6 @@ class Targets
         return $this->sshKeyPath;
     }
 
-    public function getEnvironment()
-    {
-        return $this->backupEnvironment;
-    }
 
     public function getBackupEmailData()
     {

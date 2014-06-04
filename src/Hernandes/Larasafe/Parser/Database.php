@@ -9,8 +9,6 @@ class Database
 
     protected $connection;
 
-    protected $environment;
-
     protected $options;
 
     protected $excludes;
@@ -21,11 +19,10 @@ class Database
 
 
 
-    public function __construct($environment = false)
+    public function __construct()
     {
         $this->fileConfig = Config::get('larasafe::database');
 
-        $this->environment = $environment;
 
         if ($this->fileConfig['enabled']) {
             $this->enabled = true;
@@ -46,11 +43,12 @@ class Database
     protected function parseConnection()
     {
         $connection_name = $this->fileConfig['connection'];
+        $environment = $this->fileConfig['enviroment'];
 
-        if($this->environment) {
-            $this->connection = \Config::get("database.connections.$connection_name");
+        if( ! empty($environment)) {
+            $this->connection = \Config::get("database.connections.$connection_name", $environment);
         } else {
-            $this->connection = \Config::get("database.connections.$connection_name", $this->environment);
+            $this->connection = \Config::get("database.connections.$connection_name");
         }
         
     }
