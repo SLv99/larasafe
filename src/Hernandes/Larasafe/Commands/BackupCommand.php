@@ -4,6 +4,7 @@ use Hernandes\Larasafe\Parser;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Mail;
 
 
 class BackupCommand extends Command
@@ -124,6 +125,20 @@ class BackupCommand extends Command
 
         passthru("cd ".base_path()."/.larasafe/ && tar -czf $file_name.tar.gz database files");
         passthru("cd ".base_path()."/.larasafe/ && mv $file_name.tar.gz $target/");
+
+        $backup_email = $this->targets->getBackupEmail();
+
+        if( ! empty($backup_email)) {
+           
+            Mail::send('emails.welcome', $data, function($message)
+            {
+                $message->from($backup_email 'Backup');
+
+                $message->to($backup_email);
+
+                $message->attach($target."/$file_name.tar.gz");
+            });
+        }
     }
 
     protected function remoteBackup()
