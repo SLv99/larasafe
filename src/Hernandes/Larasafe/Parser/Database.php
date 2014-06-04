@@ -43,7 +43,7 @@ class Database
     protected function parseConnection()
     {
         $connection_name = $this->fileConfig['connection'];
-        $environment = $this->fileConfig['enviroment'];
+        $environment = $this->fileConfig['environment'];
 
         if( ! empty($environment)) {
             $this->connection = \Config::get("database.connections.$connection_name", $environment);
