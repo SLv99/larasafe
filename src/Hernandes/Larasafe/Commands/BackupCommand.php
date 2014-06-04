@@ -126,15 +126,17 @@ class BackupCommand extends Command
         passthru("cd ".base_path()."/.larasafe/ && tar -czf $file_name.tar.gz database files");
         passthru("cd ".base_path()."/.larasafe/ && mv $file_name.tar.gz $target/");
 
-        $backup_email = $this->targets->getBackupEmail();
+        $backup_email_data = $this->targets->getBackupEmail();
 
         if( ! empty($backup_email)) {
            
-            Mail::send('emails.backup', array(), function($message) use ($backup_email, $target, $file_name)
+            Mail::send($backup_email_data['view'], array(), function($message) use ($backup_email_data)
             {
-                $message->from($backup_email, 'Backup');
+                $message->subject($backup_email_data['subject']);
 
-                $message->to($backup_email);
+                $message->from($backup_email, $backup_email_data['from']);
+
+                $message->to($backup_email_data['email']);
 
                 $message->attach($target."/$file_name.tar.gz");
             });
