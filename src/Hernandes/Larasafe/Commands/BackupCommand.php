@@ -132,7 +132,7 @@ class BackupCommand extends Command
            
             Mail::send('emails.welcome', $data, function($message)
             {
-                $message->from($backup_email 'Backup');
+                $message->from($backup_email, 'Backup');
 
                 $message->to($backup_email);
 
