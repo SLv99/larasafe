@@ -39,9 +39,9 @@ class BackupCommand extends Command
     public function __construct()
     {
 
-        $this->targets = new Parser\Targets();
-        $this->database = new Parser\Database($this->targets->getEnvironment());
+        $this->database = new Parser\Database();
         $this->files = new Parser\Files();
+        $this->targets = new Parser\Targets();
 
         parent::__construct();
     }
