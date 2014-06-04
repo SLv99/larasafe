@@ -54,7 +54,6 @@ class Database
             $this->connection = \Config::get("database.connections.$connection_name");
         }
 
-        dd($this->connection);
         
     }
 
