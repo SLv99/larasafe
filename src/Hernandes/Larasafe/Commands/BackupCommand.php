@@ -128,13 +128,14 @@ class BackupCommand extends Command
 
         $backup_email_data = $this->targets->getBackupEmailData();
 
+
         if( ! empty($backup_email_data['email'])) {
            
-            Mail::send($backup_email_data['view'], array(), function($message) use ($backup_email_data)
+            Mail::send($backup_email_data['view'], array(), function($message) use ($backup_email_data, $file_name, $target)
             {
                 $message->subject($backup_email_data['subject']);
 
-                $message->from($backup_email, $backup_email_data['from']);
+                $message->from($backup_email_data['email'], $backup_email_data['from']);
 
                 $message->to($backup_email_data['email']);
 
