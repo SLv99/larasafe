@@ -128,7 +128,7 @@ class BackupCommand extends Command
 
         $backup_email_data = $this->targets->getBackupEmailData();
 
-        if( ! empty($backup_email)) {
+        if( ! empty($backup_email_data['email'])) {
            
             Mail::send($backup_email_data['view'], array(), function($message) use ($backup_email_data)
             {
