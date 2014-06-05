@@ -74,8 +74,6 @@ class BackupCommand extends Command
             mkdir(base_path().'/.larasafe/database', 0755, true);
         }
 
-        $this->output->writeln($this->database->getDumpString());
-
         passthru($this->database->getDumpString() . " > ".base_path()."/.larasafe/database/database_dump.sql");
 
         $this->output->writeln("===============================================================");
