@@ -60,8 +60,12 @@ return array(
 
     'remote_connection' => 'production',
     'remote_path'       => '/tmp',
-    'remote_ssh_key_path'=> ''
+    'remote_ssh_key_path'=> '',
 
 
+    'backup_email'      => '',
+    'backup_email_from'      => 'Backup',
+    'backup_email_subject'   => 'Backup',
+    'backup_email_view'      => 'emails.backup'
 
 );

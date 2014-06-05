@@ -25,6 +25,9 @@ class Files
         }
     }
 
+    /**
+     *
+     */
     protected function parse()
     {
         $this->sources = $this->fileConfig['sources'];
@@ -32,16 +35,25 @@ class Files
         $this->excludes = $this->fileConfig['excludes'];
     }
 
+    /**
+     * @return mixed
+     */
     public function getSources()
     {
         return $this->sources;
     }
 
+    /**
+     * @return mixed
+     */
     public function getVersions()
     {
         return $this->versions;
     }
 
+    /**
+     * @return string
+     */
     public function getExcludes()
     {
         $tmpExcludes = "";
@@ -54,6 +66,9 @@ class Files
         return $tmpExcludes;
     }
 
+    /**
+     * @return bool
+     */
     public function isEnabled()
     {
         return $this->enabled;

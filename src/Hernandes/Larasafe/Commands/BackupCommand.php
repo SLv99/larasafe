@@ -47,6 +47,9 @@ class BackupCommand extends Command
     }
 
 
+    /**
+     *
+     */
     protected function init()
     {
         $this->output->writeln("\n\nLaraSafe  - Easy Laravel Backups\n\n");
@@ -57,6 +60,9 @@ class BackupCommand extends Command
     }
 
 
+    /**
+     *
+     */
     protected function databaseBackup()
     {
         $this->output->writeln("===============================================================");
@@ -80,6 +86,9 @@ class BackupCommand extends Command
     }
 
 
+    /**
+     *
+     */
     protected function filesBackup()
     {
 
@@ -119,6 +128,9 @@ class BackupCommand extends Command
     }
 
 
+    /**
+     *
+     */
     protected function localBackup()
     {
         $file_name = date('Y-m-d_h-i-s');
@@ -145,6 +157,9 @@ class BackupCommand extends Command
         }
     }
 
+    /**
+     *
+     */
     protected function remoteBackup()
     {
         $file_name  = date('Y-m-d_h-i-s');
@@ -195,7 +210,9 @@ class BackupCommand extends Command
     }
 
 
-
+    /**
+     *
+     */
     protected function prepareTmp()
     {
         $this->comment("Creating Temporary Backup Files\n");
@@ -205,6 +222,9 @@ class BackupCommand extends Command
         }
     }
 
+    /**
+     *
+     */
     protected function removeTmp()
     {
         $this->comment("\nRemoving Temporary Backup Files\n");

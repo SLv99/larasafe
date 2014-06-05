@@ -31,6 +31,9 @@ class Database
 
     }
 
+    /**
+     *
+     */
     protected function parse()
     {
         $this->parseConnection();
@@ -40,23 +43,31 @@ class Database
         $this->getDumpString();
     }
 
+    /**
+     *
+     */
     protected function parseConnection()
     {
         $connection_name = $this->fileConfig['connection'];
-        $environment = $this->fileConfig['environment'];
 
-        if( ! empty($environment)) {
-            $loader = Config::getLoader();
-            $config = new \Illuminate\Config\Repository($loader, $environment);
-        
-            $this->connection = $config->get("database.connections.$connection_name");
-        } else {
-            $this->connection = \Config::get("database.connections.$connection_name");
-        }
+        $this->connection = \Config::get("database.connections.$connection_name");
 
-        
+//      OLD CODE YOU CAN SET ENVIRONMENT DIRECTLY FROM ARTISAN BACKUP COMMAND
+//        $environment = $this->fileConfig['environment'];
+//
+//        if( ! empty($environment)) {
+//            $loader = Config::getLoader();
+//            $config = new \Illuminate\Config\Repository($loader, $environment);
+//
+//            $this->connection = $config->get("database.connections.$connection_name");
+//        } else {
+//            $this->connection = \Config::get("database.connections.$connection_name");
+//        }
     }
 
+    /**
+     *
+     */
     protected function parseOptions()
     {
         $tmpOptions = "";
@@ -71,6 +82,9 @@ class Database
     }
 
 
+    /**
+     *
+     */
     protected function parseExcludes()
     {
         $ignore_tables = "";
@@ -85,6 +99,9 @@ class Database
     }
 
 
+    /**
+     *
+     */
     protected function generateDumpString()
     {
 
@@ -103,12 +120,17 @@ class Database
     }
 
 
-
+    /**
+     * @return mixed
+     */
     public function getDumpString()
     {
         return $this->dumpString;
     }
 
+    /**
+     * @return bool
+     */
     public function isEnabled()
     {
         return $this->enabled;

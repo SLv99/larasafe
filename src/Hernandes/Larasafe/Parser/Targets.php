@@ -33,6 +33,9 @@ class Targets
         $this->parse();
     }
 
+    /**
+     *
+     */
     protected function parse()
     {
         $this->local = in_array('local', $this->fileConfig['modes']);
@@ -56,37 +59,58 @@ class Targets
         }
     }
 
+    /**
+     * @return bool
+     */
     public function localEnabled()
     {
         return $this->local;
     }
 
+    /**
+     * @return bool
+     */
     public function remoteEnabled()
     {
         return $this->remote;
     }
 
+    /**
+     * @return mixed
+     */
     public function getLocalPath()
     {
         return $this->localPath;
     }
 
+    /**
+     * @return mixed
+     */
     public function getRemoteConnection()
     {
         return $this->remoteConnection;
     }
 
+    /**
+     * @return mixed
+     */
     public function getRemotePath()
     {
         return $this->remotePath;
     }
 
+    /**
+     * @return mixed
+     */
     public function getSshKeyPath()
     {
         return $this->sshKeyPath;
     }
 
 
+    /**
+     * @return array
+     */
     public function getBackupEmailData()
     {
         return array (
